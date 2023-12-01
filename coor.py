@@ -79,7 +79,7 @@ def get_address(search_term):
                 time.sleep(0.6)
                 return lat[0], lon[0]
     except Exception as e:
-        print("5 error")
+        # print("5 error")
         return e
 
 
@@ -99,10 +99,10 @@ def main():
         progress_text = st.empty()
         processed_data = []
 
-        for i, row in enumerate(df['address']):
+        for row in range(len(add)):
             try:
                 
-                result = get_address(row)
+                result = get_address(add[row])
                 print('HIT Over....')
                 if type(result) == str:
                     st.error(f'{result}')
@@ -112,12 +112,12 @@ def main():
                 longitudes.append(float(result[1]))
 
                 # Update progress bar
-                progress_value = (i + 1) / len(df['address'])
+                progress_value = (row + 1) / len(df['address'])
                 progress_bar.progress(progress_value)
                 progress_text.text(f"Progress: {int(progress_value * 100)}%")
 
                 # Add to processed_data
-                processed_data.append({'Address': row, 'latitudes': result[0], 'Longitudes': result[1]})
+                processed_data.append({'Address': add[row], 'latitudes': result[0], 'Longitudes': result[1]})
 
                 # Display df2 on the side
                 st.sidebar.title("Processed Data (df2)")
