@@ -4,6 +4,7 @@ from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import time
+import shutil
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
@@ -13,11 +14,15 @@ chrome_options.add_argument('--ignore-certificate-errors-spki-list')
 chrome_options.add_argument('--ignore-ssl-errors')
 chrome_options.add_argument('log-level=3')
 
-CHROMEDRIVER_PATH = 'chromedriver.exe'
-service = Service(executable_path='./chromedriver.exe')
+# CHROMEDRIVER_PATH = 'chromedriver.exe'
+
+def get_chromedriver_path():
+    return shutil.which('chromedriver')
+
+
+service = Service(executable_path=get_chromedriver_path())
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
-
 def get_address(search_term):
     lat, lon = [], []
     try:
