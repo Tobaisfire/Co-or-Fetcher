@@ -124,7 +124,7 @@ def main():
                 st.sidebar.write(pd.DataFrame(processed_data))
 
             except Exception as e:
-                st.error(f'Error processing row {i + 1}: {str(e)}')
+                st.error(f'Error processing row {row + 1}: {str(e)}')
                 break
 
         # Create df2 DataFrame
