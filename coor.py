@@ -80,7 +80,7 @@ def get_address(search_term):
                 return lat[0], lon[0]
     except Exception as e:
         print("5 error")
-        return f'5',f'5'
+        return e
 
 
 def main():
@@ -101,8 +101,13 @@ def main():
 
         for i, row in enumerate(df['address']):
             try:
+                
                 result = get_address(row)
                 print('HIT Over....')
+                if type(result) == str:
+                    st.error(f'{result}')
+                    break
+
                 latitudes.append(float(result[0]))
                 longitudes.append(float(result[1]))
 
