@@ -28,7 +28,7 @@ def get_address(search_term):
     try:
         print('HIT.......')
         driver.get("https://www.google.com/maps")
-        time.sleep(1)
+        time.sleep(3)
 
         driver.find_element(By.ID, "searchboxinput").send_keys(search_term)
         driver.find_element(By.ID, "searchbox-searchbutton").click()
@@ -37,6 +37,7 @@ def get_address(search_term):
         url = driver.current_url
 
         if '!3d' in url:
+            print('--------------------------coor-----------------------------------')
             url = url.split('!3d')[1]
             url = url.split('!4d')
             lat.append(url[0])
@@ -52,6 +53,7 @@ def get_address(search_term):
                         continue
 
                     if search_term in k.get_attribute('aria-label'):
+                        print('-------------------jump------------------------------')
                         k.click()
                         time.sleep(2.5)
                         url = driver.current_url
@@ -63,19 +65,22 @@ def get_address(search_term):
                      
                             break
                         else:
+                            print('------------------------none--------------------------')
                             lat.append('0')
                             lon.append('0')
                  
                             break
                 return lat[0], lon[0]
             else:
+                print('------------------------fatal none--------------------------')
                 lat.append('0')
                 lon.append('0')
 
                 time.sleep(0.6)
                 return lat[0], lon[0]
     except Exception as e:
-        return f'500'
+        print("5 error")
+        return f'5',f'5'
 
 
 def main():
